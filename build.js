@@ -2688,24 +2688,30 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   }, "default");
 
   // main.js
-  ao();
+  ao({
+    background: [190, 190, 255]
+  });
   add([
     text("Lol"),
     pos(120, 180)
   ]);
   loadSprite("guy", "sprites/guy.png");
-  loadSprite("sword", "sprites/sword.png");
+  loadSprite("crosshair", "sprites/crosshair.png");
+  loadSprite("bullet", "sprites/bullet.png");
   var guy = add([
     sprite("guy"),
     pos(),
     area(),
     body()
   ]);
-  var sword = add([
-    sprite("sword"),
-    pos(mousePos, mousePos)
+  var crosshair = add([
+    sprite("crosshair"),
+    pos(),
+    onUpdate(() => {
+      crosshair.moveTo(mousePos().x - 30, mousePos().y - 30);
+    })
   ]);
-  onKeyPress("space", () => {
+  onKeyPress("w", () => {
     if (guy.isGrounded()) {
       guy.jump(800);
     }
@@ -2716,12 +2722,28 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   onKeyDown("a", () => {
     guy.move(-400, 0);
   });
+  var canShoot = 1;
+  onMouseDown(() => {
+    if (canShoot == 1) {
+      canShoot = 0;
+      const bullet = add([
+        sprite("bullet"),
+        area(),
+        pos(guy.pos.x + 30, guy.pos.y + 30),
+        rotate(crosshair.pos.angle(guy.pos)),
+        move(crosshair.pos.angle(guy.pos), 3e3),
+        cleanup()
+      ]);
+      wait(0.1, () => canShoot = 1);
+    }
+  });
+  mouseWorldPos.x, mouseWorldPos.y;
   add([
     rect(width(), 48),
     pos(0, height() - 48),
     outline(4),
     area(),
     solid(),
-    color(127, 200, 255)
+    color(0, 200, 0)
   ]);
 })();
