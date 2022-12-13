@@ -90,7 +90,31 @@ const slime = add([
     z(100),
     color(),
     "slime",
+    add([
+        pos(80, 120),
+        rect(80, 80),
+        area(),
+        origin("center"),
+        follow(slime),
+        opacity(0),
+        health(100),
+    ]),
 ])
+
+wait(3, () => {
+    add([
+        sprite("slime"),
+        origin("center"),
+        pos(150, 150),
+        area({scale:0.5}),
+        solid(),
+        scale(0.8),
+        rotate(),
+        z(100),
+        color(),
+        "slime",
+    ])
+})
 
 const hitbox = add([
     pos(80, 120),
@@ -129,9 +153,16 @@ onKeyDown("a", () => {
     player.move(-400, 0)
 })
 
-onUpdate(() => {
+onUpdate("slime", (slime) => {
     slime.move(player.pos.sub(slime.pos).unit().scale(400))
 })
+/*
+onUpdate("slime", (m//(vad du vill att saken heter i koden)//) => {
+        
+    const dir = player.pos.sub(m.pos).sub(rand(vec2(70))).unit()
+    m.move(dir.scale(300));
+})
+*/
 //-------------------------------------------------------------------------------
 
 //--------------------------COMBAT SCRIPTS----------------------------------------
@@ -174,7 +205,6 @@ hitbox.onCollide("bullet", () => {
     slime.move(player.pos.sub(slime.pos).unit().scale(-800))
     slime.color = rgb(255, 50, 50)
     wait(0.1, () => slime.color = rgb(255, 255, 255))
-    
 })
 
 hitbox.onDeath(() => {

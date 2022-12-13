@@ -75980,8 +75980,31 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     rotate(),
     z(100),
     color(),
-    "slime"
+    "slime",
+    add([
+      pos(80, 120),
+      rect(80, 80),
+      area(),
+      origin("center"),
+      follow(slime),
+      opacity(0),
+      health(100)
+    ])
   ]);
+  wait(3, () => {
+    add([
+      sprite("slime"),
+      origin("center"),
+      pos(150, 150),
+      area({ scale: 0.5 }),
+      solid(),
+      scale(0.8),
+      rotate(),
+      z(100),
+      color(),
+      "slime"
+    ]);
+  });
   var hitbox = add([
     pos(80, 120),
     rect(80, 80),
@@ -76011,8 +76034,8 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   onKeyDown("a", () => {
     player.move(-400, 0);
   });
-  onUpdate(() => {
-    slime.move(player.pos.sub(slime.pos).unit().scale(400));
+  onUpdate("slime", (slime2) => {
+    slime2.move(player.pos.sub(slime2.pos).unit().scale(400));
   });
   var canShoot = 1;
   onMouseDown(() => {
