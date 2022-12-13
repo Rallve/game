@@ -966,21 +966,21 @@
                 var ua = (a2 * 255 | 0) & 255;
                 return (ua << 24 | ur2 << 16 | ug << 8 | ub) >>> 0;
               },
-              getTintAppendFloatAlpha: function(rgb, a2) {
+              getTintAppendFloatAlpha: function(rgb2, a2) {
                 var ua = (a2 * 255 | 0) & 255;
-                return (ua << 24 | rgb) >>> 0;
+                return (ua << 24 | rgb2) >>> 0;
               },
-              getTintAppendFloatAlphaAndSwap: function(rgb, a2) {
-                var ur2 = (rgb >> 16 | 0) & 255;
-                var ug = (rgb >> 8 | 0) & 255;
-                var ub = (rgb | 0) & 255;
+              getTintAppendFloatAlphaAndSwap: function(rgb2, a2) {
+                var ur2 = (rgb2 >> 16 | 0) & 255;
+                var ug = (rgb2 >> 8 | 0) & 255;
+                var ub = (rgb2 | 0) & 255;
                 var ua = (a2 * 255 | 0) & 255;
                 return (ua << 24 | ub << 16 | ug << 8 | ur2) >>> 0;
               },
-              getFloatsFromUintRGB: function(rgb) {
-                var ur2 = (rgb >> 16 | 0) & 255;
-                var ug = (rgb >> 8 | 0) & 255;
-                var ub = (rgb | 0) & 255;
+              getFloatsFromUintRGB: function(rgb2) {
+                var ur2 = (rgb2 >> 16 | 0) & 255;
+                var ug = (rgb2 >> 8 | 0) & 255;
+                var ub = (rgb2 | 0) & 255;
                 return [ur2 / 255, ug / 255, ub / 255];
               },
               checkShaderMax: function(gl, maxTextures) {
@@ -13169,9 +13169,9 @@
                 Components.Visible,
                 Render
               ],
-              initialize: function BitmapText2(scene, x, y, font, text2, size, align) {
-                if (text2 === void 0) {
-                  text2 = "";
+              initialize: function BitmapText2(scene, x, y, font, text, size, align) {
+                if (text === void 0) {
+                  text = "";
                 }
                 if (align === void 0) {
                   align = 0;
@@ -13201,7 +13201,7 @@
                 this.setPosition(x, y);
                 this.setOrigin(0, 0);
                 this.initPipeline();
-                this.setText(text2);
+                this.setText(text);
               },
               setLeftAlign: function() {
                 this._align = BitmapText.ALIGN_LEFT;
@@ -15525,8 +15525,8 @@
             var Color = __webpack_require__(38);
             var IntegerToRGB = __webpack_require__(330);
             var IntegerToColor = function(input) {
-              var rgb = IntegerToRGB(input);
-              return new Color(rgb.r, rgb.g, rgb.b, rgb.a);
+              var rgb2 = IntegerToRGB(input);
+              return new Color(rgb2.r, rgb2.g, rgb2.b, rgb2.a);
             };
             module2.exports = IntegerToColor;
           },
@@ -16439,13 +16439,13 @@
                 return this;
               },
               equals: function(red, green, blue) {
-                var rgb = this._rgb;
-                return rgb.r === red && rgb.g === green && rgb.b === blue;
+                var rgb2 = this._rgb;
+                return rgb2.r === red && rgb2.g === green && rgb2.b === blue;
               },
               onChange: function() {
                 this.dirty = true;
-                var rgb = this._rgb;
-                this.onChangeCallback.call(this, rgb[0], rgb[1], rgb[2]);
+                var rgb2 = this._rgb;
+                this.onChangeCallback.call(this, rgb2[0], rgb2[1], rgb2[2]);
               },
               r: {
                 get: function() {
@@ -17601,8 +17601,8 @@
               Mixins: [
                 Render
               ],
-              initialize: function DynamicBitmapText2(scene, x, y, font, text2, size, align) {
-                BitmapText.call(this, scene, x, y, font, text2, size, align);
+              initialize: function DynamicBitmapText2(scene, x, y, font, text, size, align) {
+                BitmapText.call(this, scene, x, y, font, text, size, align);
                 this.type = "DynamicBitmapText";
                 this.scrollX = 0;
                 this.scrollY = 0;
@@ -18725,7 +18725,7 @@
                 this._saved = true;
                 return this.texture;
               },
-              fill: function(rgb, alpha, x, y, width2, height2) {
+              fill: function(rgb2, alpha, x, y, width2, height2) {
                 var frame = this.frame;
                 var camera = this.camera;
                 var renderer = this.renderer;
@@ -18744,9 +18744,9 @@
                 if (height2 === void 0) {
                   height2 = frame.cutHeight;
                 }
-                var r = (rgb >> 16 & 255) / 255;
-                var g = (rgb >> 8 & 255) / 255;
-                var b2 = (rgb & 255) / 255;
+                var r = (rgb2 >> 16 & 255) / 255;
+                var g = (rgb2 >> 8 & 255) / 255;
+                var b2 = (rgb2 & 255) / 255;
                 var renderTarget = this.renderTarget;
                 camera.preRender();
                 if (renderTarget) {
@@ -19470,7 +19470,7 @@
                 Components.Visible,
                 TextRender
               ],
-              initialize: function Text2(scene, x, y, text2, style) {
+              initialize: function Text2(scene, x, y, text, style) {
                 if (x === void 0) {
                   x = 0;
                 }
@@ -19505,7 +19505,7 @@
                   this.frame.source.glTexture = null;
                 }
                 this.initRTL();
-                this.setText(text2);
+                this.setText(text);
                 if (style && style.padding) {
                   this.setPadding(style.padding);
                 }
@@ -19526,27 +19526,27 @@
                 AddToDOM(this.canvas, this.scene.sys.canvas);
                 this.originX = 1;
               },
-              runWordWrap: function(text2) {
+              runWordWrap: function(text) {
                 var style = this.style;
                 if (style.wordWrapCallback) {
-                  var wrappedLines = style.wordWrapCallback.call(style.wordWrapCallbackScope, text2, this);
+                  var wrappedLines = style.wordWrapCallback.call(style.wordWrapCallbackScope, text, this);
                   if (Array.isArray(wrappedLines)) {
                     wrappedLines = wrappedLines.join("\n");
                   }
                   return wrappedLines;
                 } else if (style.wordWrapWidth) {
                   if (style.wordWrapUseAdvanced) {
-                    return this.advancedWordWrap(text2, this.context, this.style.wordWrapWidth);
+                    return this.advancedWordWrap(text, this.context, this.style.wordWrapWidth);
                   } else {
-                    return this.basicWordWrap(text2, this.context, this.style.wordWrapWidth);
+                    return this.basicWordWrap(text, this.context, this.style.wordWrapWidth);
                   }
                 } else {
-                  return text2;
+                  return text;
                 }
               },
-              advancedWordWrap: function(text2, context, wordWrapWidth) {
+              advancedWordWrap: function(text, context, wordWrapWidth) {
                 var output = "";
-                var lines = text2.replace(/ +/gi, " ").split(this.splitRegExp);
+                var lines = text.replace(/ +/gi, " ").split(this.splitRegExp);
                 var linesCount = lines.length;
                 for (var i = 0; i < linesCount; i++) {
                   var line = lines[i];
@@ -19595,9 +19595,9 @@
                 output = output.replace(/[\s|\n]*$/gi, "");
                 return output;
               },
-              basicWordWrap: function(text2, context, wordWrapWidth) {
+              basicWordWrap: function(text, context, wordWrapWidth) {
                 var result = "";
-                var lines = text2.split(this.splitRegExp);
+                var lines = text.split(this.splitRegExp);
                 var lastLineIndex = lines.length - 1;
                 var whiteSpaceWidth = context.measureText(" ").width;
                 for (var i = 0; i <= lastLineIndex; i++) {
@@ -19631,12 +19631,12 @@
                 }
                 return result;
               },
-              getWrappedText: function(text2) {
-                if (text2 === void 0) {
-                  text2 = this._text;
+              getWrappedText: function(text) {
+                if (text === void 0) {
+                  text = this._text;
                 }
                 this.style.syncFont(this.canvas, this.context);
-                var wrappedLines = this.runWordWrap(text2);
+                var wrappedLines = this.runWordWrap(text);
                 return wrappedLines.split(this.splitRegExp);
               },
               setText: function(value) {
@@ -25485,7 +25485,7 @@
                 var matrix = this.matrix;
                 var originX = width2 * this.originX;
                 var originY = height2 * this.originY;
-                var follow = this._follow;
+                var follow2 = this._follow;
                 var deadzone = this.deadzone;
                 var sx = this.scrollX;
                 var sy = this.scrollY;
@@ -25493,9 +25493,9 @@
                   CenterOn(deadzone, this.midPoint.x, this.midPoint.y);
                 }
                 var emitFollowEvent = false;
-                if (follow && !this.panEffect.isRunning) {
-                  var fx = follow.x - this.followOffset.x;
-                  var fy = follow.y - this.followOffset.y;
+                if (follow2 && !this.panEffect.isRunning) {
+                  var fx = follow2.x - this.followOffset.x;
+                  var fy = follow2.y - this.followOffset.y;
                   if (deadzone) {
                     if (fx < deadzone.x) {
                       sx = Linear(sx, sx - (deadzone.x - fx), this.lerp.x);
@@ -25541,7 +25541,7 @@
                 matrix.translate(-originX, -originY);
                 this.shakeEffect.preRender();
                 if (emitFollowEvent) {
-                  this.emit(Events.FOLLOW_UPDATE, this, follow);
+                  this.emit(Events.FOLLOW_UPDATE, this, follow2);
                 }
               },
               setLerp: function(x, y) {
@@ -25720,9 +25720,9 @@
           },
           function(module2, exports2, __webpack_require__) {
             var Color = __webpack_require__(38);
-            var RGBStringToColor = function(rgb) {
+            var RGBStringToColor = function(rgb2) {
               var color2 = new Color();
-              var result = /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+(?:\.\d+)?))?\s*\)$/.exec(rgb.toLowerCase());
+              var result = /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+(?:\.\d+)?))?\s*\)$/.exec(rgb2.toLowerCase());
               if (result) {
                 var r = parseInt(result[1], 10);
                 var g = parseInt(result[2], 10);
@@ -34753,8 +34753,8 @@
                     var ctx = this._tempContext;
                     ctx.clearRect(0, 0, 1, 1);
                     ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
-                    var rgb = ctx.getImageData(0, 0, 1, 1);
-                    return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
+                    var rgb2 = ctx.getImageData(0, 0, 1, 1);
+                    return new Color(rgb2.data[0], rgb2.data[1], rgb2.data[2], rgb2.data[3]);
                   }
                 }
                 return null;
@@ -34771,8 +34771,8 @@
                     var ctx = this._tempContext;
                     ctx.clearRect(0, 0, 1, 1);
                     ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
-                    var rgb = ctx.getImageData(0, 0, 1, 1);
-                    return rgb.data[3];
+                    var rgb2 = ctx.getImageData(0, 0, 1, 1);
+                    return rgb2.data[3];
                   }
                 }
                 return null;
@@ -36915,9 +36915,9 @@
                 }
                 return this;
               },
-              setText: function(text2) {
+              setText: function(text) {
                 if (this.node) {
-                  this.node.innerText = text2;
+                  this.node.innerText = text;
                   this.updateSize();
                 }
                 return this;
@@ -38424,10 +38424,10 @@
             module2.exports = PathFollower;
           },
           function(module2, exports2) {
-            var GetTextSize = function(text2, size, lines) {
-              var canvas = text2.canvas;
-              var context = text2.context;
-              var style = text2.style;
+            var GetTextSize = function(text, size, lines) {
+              var canvas = text.canvas;
+              var context = text.context;
+              var style = text.style;
               var lineWidths = [];
               var maxLineWidth = 0;
               var drawnLines = lines.length;
@@ -38446,7 +38446,7 @@
               }
               var lineHeight = size.fontSize + style.strokeThickness;
               var height2 = lineHeight * drawnLines;
-              var lineSpacing = text2.lineSpacing;
+              var lineSpacing = text.lineSpacing;
               if (drawnLines > 1) {
                 height2 += lineSpacing * (drawnLines - 1);
               }
@@ -38495,8 +38495,8 @@
               wordWrapUseAdvanced: ["wordWrap.useAdvancedWrap", false]
             };
             var TextStyle = new Class({
-              initialize: function TextStyle2(text2, style) {
-                this.parent = text2;
+              initialize: function TextStyle2(text, style) {
+                this.parent = text;
                 this.fontFamily;
                 this.fontSize;
                 this.fontStyle;
@@ -40178,8 +40178,8 @@
               willRender: function(camera) {
                 return !(Light.RENDER_MASK !== this.renderFlags || this.cameraFilter !== 0 && this.cameraFilter & camera.id);
               },
-              setColor: function(rgb) {
-                var color2 = Utils.getFloatsFromUintRGB(rgb);
+              setColor: function(rgb2) {
+                var color2 = Utils.getFloatsFromUintRGB(rgb2);
                 this.color.set(color2[0], color2[1], color2[2]);
                 return this;
               },
@@ -40250,8 +40250,8 @@
               sortByDistance: function(a2, b2) {
                 return a2.distance >= b2.distance;
               },
-              setAmbientColor: function(rgb) {
-                var color2 = Utils.getFloatsFromUintRGB(rgb);
+              setAmbientColor: function(rgb2) {
+                var color2 = Utils.getFloatsFromUintRGB(rgb2);
                 this.ambientColor.set(color2[0], color2[1], color2[2]);
                 return this;
               },
@@ -40261,7 +40261,7 @@
               getLightCount: function() {
                 return this.lights.length;
               },
-              addLight: function(x, y, radius, rgb, intensity) {
+              addLight: function(x, y, radius, rgb2, intensity) {
                 if (x === void 0) {
                   x = 0;
                 }
@@ -40271,13 +40271,13 @@
                 if (radius === void 0) {
                   radius = 128;
                 }
-                if (rgb === void 0) {
-                  rgb = 16777215;
+                if (rgb2 === void 0) {
+                  rgb2 = 16777215;
                 }
                 if (intensity === void 0) {
                   intensity = 1;
                 }
-                var color2 = Utils.getFloatsFromUintRGB(rgb);
+                var color2 = Utils.getFloatsFromUintRGB(rgb2);
                 var light = new Light(x, y, radius, color2[0], color2[1], color2[2], intensity);
                 this.lights.push(light);
                 return light;
@@ -56303,8 +56303,8 @@
                 };
                 return out;
               }
-              var text2 = src.text;
-              var textLength = text2.length;
+              var text = src.text;
+              var textLength = text.length;
               var maxWidth = src.maxWidth;
               var wordWrapCharCode = src.wordWrapCharCode;
               var bx = Number.MAX_VALUE;
@@ -56337,7 +56337,7 @@
               var current = null;
               if (maxWidth > 0) {
                 for (i = 0; i < textLength; i++) {
-                  charCode = text2.charCodeAt(i);
+                  charCode = text.charCodeAt(i);
                   if (charCode === 10) {
                     if (current !== null) {
                       words.push({
@@ -56380,7 +56380,7 @@
                     if (current === null) {
                       current = { word: "", i, x: xAdvance, y: yAdvance, w: 0, h: lineHeight, cr: false };
                     }
-                    current.word = current.word.concat(text2[i]);
+                    current.word = current.word.concat(text[i]);
                     current.w += glyph.xOffset + glyph.xAdvance + (glyphKerningOffset !== void 0 ? glyphKerningOffset : 0);
                   }
                   xAdvance += glyph.xAdvance + letterSpacing;
@@ -56435,16 +56435,16 @@
                   return str.substr(0, index) + value + str.substr(index + 1);
                 };
                 for (i = crs.length - 1; i >= 0; i--) {
-                  text2 = stringInsert(text2, crs[i], "\n");
+                  text = stringInsert(text, crs[i], "\n");
                 }
-                out.wrappedText = text2;
-                textLength = text2.length;
+                out.wrappedText = text;
+                textLength = text.length;
                 words = [];
                 current = null;
               }
               var charIndex = 0;
               for (i = 0; i < textLength; i++) {
-                charCode = text2.charCodeAt(i);
+                charCode = text.charCodeAt(i);
                 if (charCode === 10) {
                   if (current !== null) {
                     words.push({
@@ -56512,12 +56512,12 @@
                   if (current === null) {
                     current = { word: "", i: charIndex, x: xAdvance, y: yAdvance, w: 0, h: lineHeight };
                   }
-                  current.word = current.word.concat(text2[i]);
+                  current.word = current.word.concat(text[i]);
                   current.w += charWidth;
                 }
                 characters.push({
                   i: charIndex,
-                  char: text2[i],
+                  char: text[i],
                   code: charCode,
                   x: (glyph.xOffset + xAdvance) * scale2,
                   y: (glyph.yOffset + yAdvance) * scale2,
@@ -56647,8 +56647,8 @@
             var GetCalcMatrix = __webpack_require__(19);
             var Utils = __webpack_require__(12);
             var BitmapTextWebGLRenderer = function(renderer, src, camera, parentMatrix) {
-              var text2 = src._text;
-              var textLength = text2.length;
+              var text = src._text;
+              var textLength = text.length;
               if (textLength === 0) {
                 return;
               }
@@ -56734,8 +56734,8 @@
           function(module2, exports2, __webpack_require__) {
             var SetTransform = __webpack_require__(30);
             var BitmapTextCanvasRenderer = function(renderer, src, camera, parentMatrix) {
-              var text2 = src._text;
-              var textLength = text2.length;
+              var text = src._text;
+              var textLength = text.length;
               var ctx = renderer.currentContext;
               if (textLength === 0 || !SetTransform(renderer, ctx, src, camera, parentMatrix)) {
                 return;
@@ -56766,8 +56766,8 @@
               var lineOffsetX = 0;
               var bounds = src.getTextBounds(false);
               if (src.maxWidth > 0) {
-                text2 = bounds.wrappedText;
-                textLength = text2.length;
+                text = bounds.wrappedText;
+                textLength = text.length;
               }
               var lineData = src._bounds.lines;
               if (align === 1) {
@@ -56778,7 +56778,7 @@
               ctx.translate(-src.displayOriginX, -src.displayOriginY);
               var roundPixels = camera.roundPixels;
               for (var i = 0; i < textLength; i++) {
-                charCode = text2.charCodeAt(i);
+                charCode = text.charCodeAt(i);
                 if (charCode === 10) {
                   currentLine++;
                   if (align === 1) {
@@ -57181,8 +57181,8 @@
             var Utils = __webpack_require__(12);
             var tempMatrix = new TransformMatrix();
             var DynamicBitmapTextWebGLRenderer = function(renderer, src, camera, parentMatrix) {
-              var text2 = src.text;
-              var textLength = text2.length;
+              var text = src.text;
+              var textLength = text.length;
               if (textLength === 0) {
                 return;
               }
@@ -57231,8 +57231,8 @@
               var lineOffsetX = 0;
               var bounds = src.getTextBounds(false);
               if (src.maxWidth > 0) {
-                text2 = bounds.wrappedText;
-                textLength = text2.length;
+                text = bounds.wrappedText;
+                textLength = text.length;
               }
               var lineData = src._bounds.lines;
               if (align === 1) {
@@ -57245,7 +57245,7 @@
               var callbackData = src.callbackData;
               renderer.pipelines.preBatch(src);
               for (var i = 0; i < textLength; i++) {
-                charCode = text2.charCodeAt(i);
+                charCode = text.charCodeAt(i);
                 if (charCode === 10) {
                   currentLine++;
                   if (align === 1) {
@@ -57356,8 +57356,8 @@
           function(module2, exports2, __webpack_require__) {
             var SetTransform = __webpack_require__(30);
             var DynamicBitmapTextCanvasRenderer = function(renderer, src, camera, parentMatrix) {
-              var text2 = src._text;
-              var textLength = text2.length;
+              var text = src._text;
+              var textLength = text.length;
               var ctx = renderer.currentContext;
               if (textLength === 0 || !SetTransform(renderer, ctx, src, camera, parentMatrix)) {
                 return;
@@ -57407,7 +57407,7 @@
               for (var i = 0; i < textLength; i++) {
                 scale2 = baseScale;
                 rotation = 0;
-                charCode = text2.charCodeAt(i);
+                charCode = text.charCodeAt(i);
                 if (charCode === 10) {
                   currentLine++;
                   if (align === 1) {
@@ -59702,8 +59702,8 @@
           function(module2, exports2, __webpack_require__) {
             var DynamicBitmapText = __webpack_require__(215);
             var GameObjectFactory = __webpack_require__(5);
-            GameObjectFactory.register("dynamicBitmapText", function(x, y, font, text2, size) {
-              return this.displayList.add(new DynamicBitmapText(this.scene, x, y, font, text2, size));
+            GameObjectFactory.register("dynamicBitmapText", function(x, y, font, text, size) {
+              return this.displayList.add(new DynamicBitmapText(this.scene, x, y, font, text, size));
             });
           },
           function(module2, exports2, __webpack_require__) {
@@ -59788,15 +59788,15 @@
           function(module2, exports2, __webpack_require__) {
             var BitmapText = __webpack_require__(148);
             var GameObjectFactory = __webpack_require__(5);
-            GameObjectFactory.register("bitmapText", function(x, y, font, text2, size, align) {
-              return this.displayList.add(new BitmapText(this.scene, x, y, font, text2, size, align));
+            GameObjectFactory.register("bitmapText", function(x, y, font, text, size, align) {
+              return this.displayList.add(new BitmapText(this.scene, x, y, font, text, size, align));
             });
           },
           function(module2, exports2, __webpack_require__) {
             var Text = __webpack_require__(224);
             var GameObjectFactory = __webpack_require__(5);
-            GameObjectFactory.register("text", function(x, y, text2, style) {
-              return this.displayList.add(new Text(this.scene, x, y, text2, style));
+            GameObjectFactory.register("text", function(x, y, text, style) {
+              return this.displayList.add(new Text(this.scene, x, y, text, style));
             });
           },
           function(module2, exports2, __webpack_require__) {
@@ -59949,9 +59949,9 @@
                 config = {};
               }
               var font = GetAdvancedValue(config, "font", "");
-              var text2 = GetAdvancedValue(config, "text", "");
+              var text = GetAdvancedValue(config, "text", "");
               var size = GetAdvancedValue(config, "size", false);
-              var bitmapText = new BitmapText(this.scene, 0, 0, font, text2, size);
+              var bitmapText = new BitmapText(this.scene, 0, 0, font, text, size);
               if (addToScene !== void 0) {
                 config.add = addToScene;
               }
@@ -60127,10 +60127,10 @@
                 config = {};
               }
               var font = GetValue(config, "font", "");
-              var text2 = GetAdvancedValue(config, "text", "");
+              var text = GetAdvancedValue(config, "text", "");
               var size = GetAdvancedValue(config, "size", false);
               var align = GetValue(config, "align", 0);
-              var bitmapText = new BitmapText(this.scene, 0, 0, font, text2, size, align);
+              var bitmapText = new BitmapText(this.scene, 0, 0, font, text, size, align);
               if (addToScene !== void 0) {
                 config.add = addToScene;
               }
@@ -60153,14 +60153,14 @@
               if (padding !== null) {
                 style.padding = padding;
               }
-              var text2 = new Text(this.scene, 0, 0, content, style);
+              var text = new Text(this.scene, 0, 0, content, style);
               if (addToScene !== void 0) {
                 config.add = addToScene;
               }
-              BuildGameObject(this.scene, text2, config);
-              text2.autoRound = GetAdvancedValue(config, "autoRound", true);
-              text2.resolution = GetAdvancedValue(config, "resolution", 1);
-              return text2;
+              BuildGameObject(this.scene, text, config);
+              text.autoRound = GetAdvancedValue(config, "autoRound", true);
+              text.resolution = GetAdvancedValue(config, "resolution", 1);
+              return text;
             });
           },
           function(module2, exports2, __webpack_require__) {
@@ -65537,8 +65537,8 @@
               },
               onProcess: function() {
                 this.state = CONST.FILE_PROCESSING;
-                var text2 = this.xhrLoader.responseText;
-                var svg = [text2];
+                var text = this.xhrLoader.responseText;
+                var svg = [text];
                 var width2 = this.config.width;
                 var height2 = this.config.height;
                 var scale2 = this.config.scale;
@@ -65546,7 +65546,7 @@
                   if (width2 && height2 || scale2) {
                     var xml = null;
                     var parser = new DOMParser();
-                    xml = parser.parseFromString(text2, "text/xml");
+                    xml = parser.parseFromString(text, "text/xml");
                     var svgXML = xml.getElementsByTagName("svg")[0];
                     var hasViewBox = svgXML.hasAttribute("viewBox");
                     var svgWidth = parseFloat(svgXML.getAttribute("width"));
@@ -65770,10 +65770,10 @@
               addToCache: function() {
                 if (this.isReadyToProcess()) {
                   var image = this.files[0];
-                  var text2 = this.files[1];
+                  var text = this.files[1];
                   var normalMap = this.files[2] ? this.files[2].data : null;
-                  this.loader.textureManager.addUnityAtlas(image.key, image.data, text2.data, normalMap);
-                  text2.pendingDestroy();
+                  this.loader.textureManager.addUnityAtlas(image.key, image.data, text.data, normalMap);
+                  text.pendingDestroy();
                   this.complete = true;
                 }
               }
@@ -69356,25 +69356,25 @@
                 for (var k = partsLength > 1 ? 1 : 0; k < partsLength; k++) {
                   var part = parts[k];
                   var render = part.render;
-                  var opacity = render.opacity;
-                  if (!render.visible || opacity === 0 || part.isSensor && !config.showSensors) {
+                  var opacity2 = render.opacity;
+                  if (!render.visible || opacity2 === 0 || part.isSensor && !config.showSensors) {
                     continue;
                   }
                   var circleRadius = part.circleRadius;
                   graphics.beginPath();
                   if (part.isSensor) {
                     if (fillColor !== null) {
-                      graphics.fillStyle(sensorFillColor, fillOpacity * opacity);
+                      graphics.fillStyle(sensorFillColor, fillOpacity * opacity2);
                     }
                     if (lineColor !== null) {
-                      graphics.lineStyle(lineThickness, sensorLineColor, lineOpacity * opacity);
+                      graphics.lineStyle(lineThickness, sensorLineColor, lineOpacity * opacity2);
                     }
                   } else {
                     if (fillColor !== null) {
-                      graphics.fillStyle(fillColor, fillOpacity * opacity);
+                      graphics.fillStyle(fillColor, fillOpacity * opacity2);
                     }
                     if (lineColor !== null) {
-                      graphics.lineStyle(lineThickness, lineColor, lineOpacity * opacity);
+                      graphics.lineStyle(lineThickness, lineColor, lineOpacity * opacity2);
                     }
                   }
                   if (circleRadius) {
@@ -75912,10 +75912,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   ao({
     background: [60, 200, 30]
   });
-  add([
-    text("Lol"),
-    pos(120, 180)
-  ]);
   loadSprite("crosshair", "sprites/crosshair.png");
   loadSprite("bullet", "sprites/bullet.png");
   loadSprite("slime", "sprites/slime.png");
@@ -75923,67 +75919,6 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   loadSprite("m4", "sprites/M4.png");
   loadSound("gunshot", "sounds/gunshot.mp3");
   volume(0.1);
-  var m4 = add([
-    sprite("m4"),
-    origin("center"),
-    pos(),
-    scale(),
-    rotate(),
-    z(10)
-  ]);
-  var player = add([
-    sprite("player"),
-    origin("center"),
-    pos(center()),
-    area(),
-    solid(),
-    scale(0.5),
-    rotate(),
-    z(15)
-  ]);
-  player.onUpdate(() => {
-    player.angle = crosshair.pos.angle(player.pos);
-    m4.angle = crosshair.pos.angle(m4.pos);
-    m4.moveTo(player.pos.x - 31 * Math.sin(deg2rad(player.angle)), player.pos.y + 31 * Math.cos(deg2rad(player.angle)));
-  });
-  var crosshair = add([
-    sprite("crosshair"),
-    pos(),
-    origin("center"),
-    onUpdate(() => {
-      crosshair.moveTo(mousePos().x, mousePos().y);
-    })
-  ]);
-  onKeyDown("w", () => {
-    player.move(0, -400);
-  });
-  onKeyDown("s", () => {
-    player.move(0, 400);
-  });
-  onKeyDown("d", () => {
-    player.move(400, 0);
-  });
-  onKeyDown("a", () => {
-    player.move(-400, 0);
-  });
-  var canShoot = 1;
-  onMouseDown(() => {
-    if (canShoot == 1) {
-      canShoot = 0;
-      const bullet = add([
-        sprite("bullet"),
-        origin("center"),
-        play("gunshot"),
-        area(),
-        pos(m4.pos.x, m4.pos.y),
-        rotate(crosshair.pos.angle(m4.pos)),
-        move(crosshair.pos.angle(m4.pos), 3e3),
-        cleanup()
-      ]);
-      wait(0.1, () => canShoot = 1);
-    }
-  });
-  mouseWorldPos.x, mouseWorldPos.y;
   add([
     rect(width(), 48),
     pos(0, height() - 48),
@@ -76016,6 +75951,111 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     solid(),
     color(100, 100, 100)
   ]);
+  var m4 = add([
+    sprite("m4"),
+    origin("center"),
+    pos(),
+    scale(),
+    rotate(),
+    z(10)
+  ]);
+  var player = add([
+    sprite("player"),
+    origin("center"),
+    pos(center()),
+    area(),
+    solid(),
+    scale(0.5),
+    rotate(),
+    z(15),
+    health(1)
+  ]);
+  var slime = add([
+    sprite("slime"),
+    origin("center"),
+    pos(150, 150),
+    area({ scale: 0.5 }),
+    solid(),
+    scale(0.8),
+    rotate(),
+    z(100),
+    color(),
+    "slime"
+  ]);
+  var hitbox = add([
+    pos(80, 120),
+    rect(80, 80),
+    area(),
+    origin("center"),
+    follow(slime),
+    opacity(0),
+    health(100)
+  ]);
+  var crosshair = add([
+    sprite("crosshair"),
+    pos(),
+    origin("center"),
+    onUpdate(() => {
+      crosshair.moveTo(mousePos().x, mousePos().y);
+    })
+  ]);
+  onKeyDown("w", () => {
+    player.move(0, -400);
+  });
+  onKeyDown("s", () => {
+    player.move(0, 400);
+  });
+  onKeyDown("d", () => {
+    player.move(400, 0);
+  });
+  onKeyDown("a", () => {
+    player.move(-400, 0);
+  });
+  onUpdate(() => {
+    slime.move(player.pos.sub(slime.pos).unit().scale(400));
+  });
+  var canShoot = 1;
+  onMouseDown(() => {
+    if (canShoot == 1) {
+      canShoot = 0;
+      const bullet = add([
+        sprite("bullet"),
+        origin("center"),
+        play("gunshot"),
+        area(),
+        pos(m4.pos.x, m4.pos.y),
+        rotate(crosshair.pos.angle(m4.pos)),
+        move(crosshair.pos.angle(m4.pos), 3e3),
+        cleanup(),
+        "bullet",
+        onCollide("slime", () => {
+          console.log("hi");
+        })
+      ]);
+      wait(0.1, () => canShoot = 1);
+    }
+  });
+  player.onCollide("slime", () => {
+    player.hurt(1);
+  });
+  player.onDeath(() => {
+    player.destroy();
+    m4.destroy();
+  });
+  hitbox.onCollide("bullet", () => {
+    hitbox.hurt(5);
+    slime.move(player.pos.sub(slime.pos).unit().scale(-800));
+    slime.color = rgb(255, 50, 50);
+    wait(0.1, () => slime.color = rgb(255, 255, 255));
+  });
+  hitbox.onDeath(() => {
+    slime.destroy();
+  });
+  player.onUpdate(() => {
+    player.angle = crosshair.pos.angle(player.pos);
+    m4.angle = crosshair.pos.angle(m4.pos);
+    m4.moveTo(player.pos.x - 31 * Math.sin(deg2rad(player.angle)), player.pos.y + 31 * Math.cos(deg2rad(player.angle)));
+  });
 })();
 /**
  * @author       @dxu https://github.com/dxu/matter-collision-events
