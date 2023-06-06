@@ -966,21 +966,21 @@
                 var ua = (a2 * 255 | 0) & 255;
                 return (ua << 24 | ur2 << 16 | ug << 8 | ub) >>> 0;
               },
-              getTintAppendFloatAlpha: function(rgb2, a2) {
+              getTintAppendFloatAlpha: function(rgb, a2) {
                 var ua = (a2 * 255 | 0) & 255;
-                return (ua << 24 | rgb2) >>> 0;
+                return (ua << 24 | rgb) >>> 0;
               },
-              getTintAppendFloatAlphaAndSwap: function(rgb2, a2) {
-                var ur2 = (rgb2 >> 16 | 0) & 255;
-                var ug = (rgb2 >> 8 | 0) & 255;
-                var ub = (rgb2 | 0) & 255;
+              getTintAppendFloatAlphaAndSwap: function(rgb, a2) {
+                var ur2 = (rgb >> 16 | 0) & 255;
+                var ug = (rgb >> 8 | 0) & 255;
+                var ub = (rgb | 0) & 255;
                 var ua = (a2 * 255 | 0) & 255;
                 return (ua << 24 | ub << 16 | ug << 8 | ur2) >>> 0;
               },
-              getFloatsFromUintRGB: function(rgb2) {
-                var ur2 = (rgb2 >> 16 | 0) & 255;
-                var ug = (rgb2 >> 8 | 0) & 255;
-                var ub = (rgb2 | 0) & 255;
+              getFloatsFromUintRGB: function(rgb) {
+                var ur2 = (rgb >> 16 | 0) & 255;
+                var ug = (rgb >> 8 | 0) & 255;
+                var ub = (rgb | 0) & 255;
                 return [ur2 / 255, ug / 255, ub / 255];
               },
               checkShaderMax: function(gl, maxTextures) {
@@ -7266,17 +7266,17 @@
                   return Math.min(this.x1, this.x2, this.x3);
                 },
                 set: function(value) {
-                  var diff = 0;
+                  var diff2 = 0;
                   if (this.x1 <= this.x2 && this.x1 <= this.x3) {
-                    diff = this.x1 - value;
+                    diff2 = this.x1 - value;
                   } else if (this.x2 <= this.x1 && this.x2 <= this.x3) {
-                    diff = this.x2 - value;
+                    diff2 = this.x2 - value;
                   } else {
-                    diff = this.x3 - value;
+                    diff2 = this.x3 - value;
                   }
-                  this.x1 -= diff;
-                  this.x2 -= diff;
-                  this.x3 -= diff;
+                  this.x1 -= diff2;
+                  this.x2 -= diff2;
+                  this.x3 -= diff2;
                 }
               },
               right: {
@@ -7284,17 +7284,17 @@
                   return Math.max(this.x1, this.x2, this.x3);
                 },
                 set: function(value) {
-                  var diff = 0;
+                  var diff2 = 0;
                   if (this.x1 >= this.x2 && this.x1 >= this.x3) {
-                    diff = this.x1 - value;
+                    diff2 = this.x1 - value;
                   } else if (this.x2 >= this.x1 && this.x2 >= this.x3) {
-                    diff = this.x2 - value;
+                    diff2 = this.x2 - value;
                   } else {
-                    diff = this.x3 - value;
+                    diff2 = this.x3 - value;
                   }
-                  this.x1 -= diff;
-                  this.x2 -= diff;
-                  this.x3 -= diff;
+                  this.x1 -= diff2;
+                  this.x2 -= diff2;
+                  this.x3 -= diff2;
                 }
               },
               top: {
@@ -7302,17 +7302,17 @@
                   return Math.min(this.y1, this.y2, this.y3);
                 },
                 set: function(value) {
-                  var diff = 0;
+                  var diff2 = 0;
                   if (this.y1 <= this.y2 && this.y1 <= this.y3) {
-                    diff = this.y1 - value;
+                    diff2 = this.y1 - value;
                   } else if (this.y2 <= this.y1 && this.y2 <= this.y3) {
-                    diff = this.y2 - value;
+                    diff2 = this.y2 - value;
                   } else {
-                    diff = this.y3 - value;
+                    diff2 = this.y3 - value;
                   }
-                  this.y1 -= diff;
-                  this.y2 -= diff;
-                  this.y3 -= diff;
+                  this.y1 -= diff2;
+                  this.y2 -= diff2;
+                  this.y3 -= diff2;
                 }
               },
               bottom: {
@@ -7320,17 +7320,17 @@
                   return Math.max(this.y1, this.y2, this.y3);
                 },
                 set: function(value) {
-                  var diff = 0;
+                  var diff2 = 0;
                   if (this.y1 >= this.y2 && this.y1 >= this.y3) {
-                    diff = this.y1 - value;
+                    diff2 = this.y1 - value;
                   } else if (this.y2 >= this.y1 && this.y2 >= this.y3) {
-                    diff = this.y2 - value;
+                    diff2 = this.y2 - value;
                   } else {
-                    diff = this.y3 - value;
+                    diff2 = this.y3 - value;
                   }
-                  this.y1 -= diff;
-                  this.y2 -= diff;
-                  this.y3 -= diff;
+                  this.y1 -= diff2;
+                  this.y2 -= diff2;
+                  this.y3 -= diff2;
                 }
               }
             });
@@ -13169,9 +13169,9 @@
                 Components.Visible,
                 Render
               ],
-              initialize: function BitmapText2(scene, x, y, font, text, size, align) {
-                if (text === void 0) {
-                  text = "";
+              initialize: function BitmapText2(scene, x, y, font, text2, size, align) {
+                if (text2 === void 0) {
+                  text2 = "";
                 }
                 if (align === void 0) {
                   align = 0;
@@ -13201,7 +13201,7 @@
                 this.setPosition(x, y);
                 this.setOrigin(0, 0);
                 this.initPipeline();
-                this.setText(text);
+                this.setText(text2);
               },
               setLeftAlign: function() {
                 this._align = BitmapText.ALIGN_LEFT;
@@ -15525,8 +15525,8 @@
             var Color = __webpack_require__(38);
             var IntegerToRGB = __webpack_require__(330);
             var IntegerToColor = function(input) {
-              var rgb2 = IntegerToRGB(input);
-              return new Color(rgb2.r, rgb2.g, rgb2.b, rgb2.a);
+              var rgb = IntegerToRGB(input);
+              return new Color(rgb.r, rgb.g, rgb.b, rgb.a);
             };
             module2.exports = IntegerToColor;
           },
@@ -16439,13 +16439,13 @@
                 return this;
               },
               equals: function(red, green, blue) {
-                var rgb2 = this._rgb;
-                return rgb2.r === red && rgb2.g === green && rgb2.b === blue;
+                var rgb = this._rgb;
+                return rgb.r === red && rgb.g === green && rgb.b === blue;
               },
               onChange: function() {
                 this.dirty = true;
-                var rgb2 = this._rgb;
-                this.onChangeCallback.call(this, rgb2[0], rgb2[1], rgb2[2]);
+                var rgb = this._rgb;
+                this.onChangeCallback.call(this, rgb[0], rgb[1], rgb[2]);
               },
               r: {
                 get: function() {
@@ -17601,8 +17601,8 @@
               Mixins: [
                 Render
               ],
-              initialize: function DynamicBitmapText2(scene, x, y, font, text, size, align) {
-                BitmapText.call(this, scene, x, y, font, text, size, align);
+              initialize: function DynamicBitmapText2(scene, x, y, font, text2, size, align) {
+                BitmapText.call(this, scene, x, y, font, text2, size, align);
                 this.type = "DynamicBitmapText";
                 this.scrollX = 0;
                 this.scrollY = 0;
@@ -18725,7 +18725,7 @@
                 this._saved = true;
                 return this.texture;
               },
-              fill: function(rgb2, alpha, x, y, width2, height2) {
+              fill: function(rgb, alpha, x, y, width2, height2) {
                 var frame = this.frame;
                 var camera = this.camera;
                 var renderer = this.renderer;
@@ -18744,9 +18744,9 @@
                 if (height2 === void 0) {
                   height2 = frame.cutHeight;
                 }
-                var r = (rgb2 >> 16 & 255) / 255;
-                var g = (rgb2 >> 8 & 255) / 255;
-                var b2 = (rgb2 & 255) / 255;
+                var r = (rgb >> 16 & 255) / 255;
+                var g = (rgb >> 8 & 255) / 255;
+                var b2 = (rgb & 255) / 255;
                 var renderTarget = this.renderTarget;
                 camera.preRender();
                 if (renderTarget) {
@@ -19470,7 +19470,7 @@
                 Components.Visible,
                 TextRender
               ],
-              initialize: function Text2(scene, x, y, text, style) {
+              initialize: function Text2(scene, x, y, text2, style) {
                 if (x === void 0) {
                   x = 0;
                 }
@@ -19505,7 +19505,7 @@
                   this.frame.source.glTexture = null;
                 }
                 this.initRTL();
-                this.setText(text);
+                this.setText(text2);
                 if (style && style.padding) {
                   this.setPadding(style.padding);
                 }
@@ -19526,27 +19526,27 @@
                 AddToDOM(this.canvas, this.scene.sys.canvas);
                 this.originX = 1;
               },
-              runWordWrap: function(text) {
+              runWordWrap: function(text2) {
                 var style = this.style;
                 if (style.wordWrapCallback) {
-                  var wrappedLines = style.wordWrapCallback.call(style.wordWrapCallbackScope, text, this);
+                  var wrappedLines = style.wordWrapCallback.call(style.wordWrapCallbackScope, text2, this);
                   if (Array.isArray(wrappedLines)) {
                     wrappedLines = wrappedLines.join("\n");
                   }
                   return wrappedLines;
                 } else if (style.wordWrapWidth) {
                   if (style.wordWrapUseAdvanced) {
-                    return this.advancedWordWrap(text, this.context, this.style.wordWrapWidth);
+                    return this.advancedWordWrap(text2, this.context, this.style.wordWrapWidth);
                   } else {
-                    return this.basicWordWrap(text, this.context, this.style.wordWrapWidth);
+                    return this.basicWordWrap(text2, this.context, this.style.wordWrapWidth);
                   }
                 } else {
-                  return text;
+                  return text2;
                 }
               },
-              advancedWordWrap: function(text, context, wordWrapWidth) {
+              advancedWordWrap: function(text2, context, wordWrapWidth) {
                 var output = "";
-                var lines = text.replace(/ +/gi, " ").split(this.splitRegExp);
+                var lines = text2.replace(/ +/gi, " ").split(this.splitRegExp);
                 var linesCount = lines.length;
                 for (var i = 0; i < linesCount; i++) {
                   var line = lines[i];
@@ -19595,9 +19595,9 @@
                 output = output.replace(/[\s|\n]*$/gi, "");
                 return output;
               },
-              basicWordWrap: function(text, context, wordWrapWidth) {
+              basicWordWrap: function(text2, context, wordWrapWidth) {
                 var result = "";
-                var lines = text.split(this.splitRegExp);
+                var lines = text2.split(this.splitRegExp);
                 var lastLineIndex = lines.length - 1;
                 var whiteSpaceWidth = context.measureText(" ").width;
                 for (var i = 0; i <= lastLineIndex; i++) {
@@ -19631,12 +19631,12 @@
                 }
                 return result;
               },
-              getWrappedText: function(text) {
-                if (text === void 0) {
-                  text = this._text;
+              getWrappedText: function(text2) {
+                if (text2 === void 0) {
+                  text2 = this._text;
                 }
                 this.style.syncFont(this.canvas, this.context);
-                var wrappedLines = this.runWordWrap(text);
+                var wrappedLines = this.runWordWrap(text2);
                 return wrappedLines.split(this.splitRegExp);
               },
               setText: function(value) {
@@ -20226,7 +20226,7 @@
               removedFromScene: function() {
                 this.scene.sys.updateList.remove(this);
               },
-              play: function(loop, markerIn, markerOut) {
+              play: function(loop2, markerIn, markerOut) {
                 if (this.touchLocked && this.playWhenUnlocked || this.isPlaying()) {
                   return this;
                 }
@@ -20235,8 +20235,8 @@
                   console.warn("Video not loaded");
                   return this;
                 }
-                if (loop === void 0) {
-                  loop = video.loop;
+                if (loop2 === void 0) {
+                  loop2 = video.loop;
                 }
                 var sound = this.scene.sys.sound;
                 if (sound && sound.mute) {
@@ -20248,7 +20248,7 @@
                 if (!isNaN(markerOut) && markerOut > markerIn) {
                   this._markerOut = markerOut;
                 }
-                video.loop = loop;
+                video.loop = loop2;
                 var callbacks = this._callbacks;
                 var playPromise = video.play();
                 if (playPromise !== void 0) {
@@ -20266,7 +20266,7 @@
                 video.addEventListener("seeked", callbacks.seeked, true);
                 return this;
               },
-              changeSource: function(key, autoplay, loop, markerIn, markerOut) {
+              changeSource: function(key, autoplay, loop2, markerIn, markerOut) {
                 if (autoplay === void 0) {
                   autoplay = true;
                 }
@@ -20295,7 +20295,7 @@
                   newVideo.currentTime = 0;
                   this._lastUpdate = 0;
                   if (autoplay) {
-                    this.play(loop, markerIn, markerOut);
+                    this.play(loop2, markerIn, markerOut);
                   }
                 } else {
                   this.video = null;
@@ -20308,10 +20308,10 @@
                 }
                 return this;
               },
-              playMarker: function(key, loop) {
+              playMarker: function(key, loop2) {
                 var marker = this.markers[key];
                 if (marker) {
-                  this.play(loop, marker[0], marker[1]);
+                  this.play(loop2, marker[0], marker[1]);
                 }
                 return this;
               },
@@ -23136,10 +23136,10 @@
                   }
                 }
               },
-              setStateFromEnd: function(tween, tweenData, diff) {
+              setStateFromEnd: function(tween, tweenData, diff2) {
                 if (tweenData.yoyo) {
-                  tweenData.elapsed = diff;
-                  tweenData.progress = diff / tweenData.duration;
+                  tweenData.elapsed = diff2;
+                  tweenData.progress = diff2 / tweenData.duration;
                   if (tweenData.flipX) {
                     tweenData.target.toggleFlipX();
                   }
@@ -23151,8 +23151,8 @@
                   return TWEEN_CONST.PLAYING_BACKWARD;
                 } else if (tweenData.repeatCounter > 0) {
                   tweenData.repeatCounter--;
-                  tweenData.elapsed = diff;
-                  tweenData.progress = diff / tweenData.duration;
+                  tweenData.elapsed = diff2;
+                  tweenData.progress = diff2 / tweenData.duration;
                   if (tweenData.flipX) {
                     tweenData.target.toggleFlipX();
                   }
@@ -23162,7 +23162,7 @@
                   tweenData.start = tweenData.getStartValue(tweenData.target, tweenData.key, tweenData.start, tweenData.index, tween.totalTargets, tween);
                   tweenData.end = tweenData.getEndValue(tweenData.target, tweenData.key, tweenData.start, tweenData.index, tween.totalTargets, tween);
                   if (tweenData.repeatDelay > 0) {
-                    tweenData.elapsed = tweenData.repeatDelay - diff;
+                    tweenData.elapsed = tweenData.repeatDelay - diff2;
                     tweenData.current = tweenData.start;
                     tweenData.target[tweenData.key] = tweenData.current;
                     return TWEEN_CONST.REPEAT_DELAY;
@@ -23173,11 +23173,11 @@
                 }
                 return TWEEN_CONST.COMPLETE;
               },
-              setStateFromStart: function(tween, tweenData, diff) {
+              setStateFromStart: function(tween, tweenData, diff2) {
                 if (tweenData.repeatCounter > 0) {
                   tweenData.repeatCounter--;
-                  tweenData.elapsed = diff;
-                  tweenData.progress = diff / tweenData.duration;
+                  tweenData.elapsed = diff2;
+                  tweenData.progress = diff2 / tweenData.duration;
                   if (tweenData.flipX) {
                     tweenData.target.toggleFlipX();
                   }
@@ -23186,7 +23186,7 @@
                   }
                   tweenData.end = tweenData.getEndValue(tweenData.target, tweenData.key, tweenData.start, tweenData.index, tween.totalTargets, tween);
                   if (tweenData.repeatDelay > 0) {
-                    tweenData.elapsed = tweenData.repeatDelay - diff;
+                    tweenData.elapsed = tweenData.repeatDelay - diff2;
                     tweenData.current = tweenData.start;
                     tweenData.target[tweenData.key] = tweenData.current;
                     return TWEEN_CONST.REPEAT_DELAY;
@@ -23208,10 +23208,10 @@
                     }
                     var elapsed = tweenData.elapsed;
                     var duration = tweenData.duration;
-                    var diff = 0;
+                    var diff2 = 0;
                     elapsed += delta;
                     if (elapsed > duration) {
-                      diff = elapsed - duration;
+                      diff2 = elapsed - duration;
                       elapsed = duration;
                     }
                     var forward = tweenData.state === TWEEN_CONST.PLAYING_FORWARD;
@@ -23224,15 +23224,15 @@
                         tweenData.current = tweenData.end;
                         target[tweenData.key] = tweenData.end;
                         if (tweenData.hold > 0) {
-                          tweenData.elapsed = tweenData.hold - diff;
+                          tweenData.elapsed = tweenData.hold - diff2;
                           tweenData.state = TWEEN_CONST.HOLD_DELAY;
                         } else {
-                          tweenData.state = this.setStateFromEnd(tween, tweenData, diff);
+                          tweenData.state = this.setStateFromEnd(tween, tweenData, diff2);
                         }
                       } else {
                         tweenData.current = tweenData.start;
                         target[tweenData.key] = tweenData.start;
-                        tweenData.state = this.setStateFromStart(tween, tweenData, diff);
+                        tweenData.state = this.setStateFromStart(tween, tweenData, diff2);
                       }
                     } else {
                       var v2 = forward ? tweenData.ease(progress) : tweenData.ease(1 - progress);
@@ -25485,7 +25485,7 @@
                 var matrix = this.matrix;
                 var originX = width2 * this.originX;
                 var originY = height2 * this.originY;
-                var follow2 = this._follow;
+                var follow = this._follow;
                 var deadzone = this.deadzone;
                 var sx = this.scrollX;
                 var sy = this.scrollY;
@@ -25493,9 +25493,9 @@
                   CenterOn(deadzone, this.midPoint.x, this.midPoint.y);
                 }
                 var emitFollowEvent = false;
-                if (follow2 && !this.panEffect.isRunning) {
-                  var fx = follow2.x - this.followOffset.x;
-                  var fy = follow2.y - this.followOffset.y;
+                if (follow && !this.panEffect.isRunning) {
+                  var fx = follow.x - this.followOffset.x;
+                  var fy = follow.y - this.followOffset.y;
                   if (deadzone) {
                     if (fx < deadzone.x) {
                       sx = Linear(sx, sx - (deadzone.x - fx), this.lerp.x);
@@ -25541,7 +25541,7 @@
                 matrix.translate(-originX, -originY);
                 this.shakeEffect.preRender();
                 if (emitFollowEvent) {
-                  this.emit(Events.FOLLOW_UPDATE, this, follow2);
+                  this.emit(Events.FOLLOW_UPDATE, this, follow);
                 }
               },
               setLerp: function(x, y) {
@@ -25720,9 +25720,9 @@
           },
           function(module2, exports2, __webpack_require__) {
             var Color = __webpack_require__(38);
-            var RGBStringToColor = function(rgb2) {
+            var RGBStringToColor = function(rgb) {
               var color2 = new Color();
-              var result = /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+(?:\.\d+)?))?\s*\)$/.exec(rgb2.toLowerCase());
+              var result = /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+(?:\.\d+)?))?\s*\)$/.exec(rgb.toLowerCase());
               if (result) {
                 var r = parseInt(result[1], 10);
                 var g = parseInt(result[2], 10);
@@ -30007,8 +30007,8 @@
                   gl.viewport(0, 0, source.width, source.height);
                   this.setTargetUVs(source, target);
                 } else {
-                  var diff = target.height - source.height;
-                  gl.viewport(0, diff, source.width, source.height);
+                  var diff2 = target.height - source.height;
+                  gl.viewport(0, diff2, source.width, source.height);
                 }
                 gl.bindFramebuffer(gl.FRAMEBUFFER, target.framebuffer);
                 gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, target.texture, 0);
@@ -30173,13 +30173,13 @@
                 vertexViewF32[23] = vD;
               },
               setTargetUVs: function(source, target) {
-                var diff = target.height / source.height;
-                if (diff > 0.5) {
-                  diff = 0.5 - (diff - 0.5);
+                var diff2 = target.height / source.height;
+                if (diff2 > 0.5) {
+                  diff2 = 0.5 - (diff2 - 0.5);
                 } else {
-                  diff = 0.5 + (0.5 - diff);
+                  diff2 = 0.5 + (0.5 - diff2);
                 }
-                this.setUVs(0, diff, 0, 1 + diff, 1, 1 + diff, 1, diff);
+                this.setUVs(0, diff2, 0, 1 + diff2, 1, 1 + diff2, 1, diff2);
               },
               flipX: function() {
                 this.setUVs(1, 0, 1, 1, 0, 1, 0, 0);
@@ -34753,8 +34753,8 @@
                     var ctx = this._tempContext;
                     ctx.clearRect(0, 0, 1, 1);
                     ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
-                    var rgb2 = ctx.getImageData(0, 0, 1, 1);
-                    return new Color(rgb2.data[0], rgb2.data[1], rgb2.data[2], rgb2.data[3]);
+                    var rgb = ctx.getImageData(0, 0, 1, 1);
+                    return new Color(rgb.data[0], rgb.data[1], rgb.data[2], rgb.data[3]);
                   }
                 }
                 return null;
@@ -34771,8 +34771,8 @@
                     var ctx = this._tempContext;
                     ctx.clearRect(0, 0, 1, 1);
                     ctx.drawImage(textureFrame.source.image, x, y, 1, 1, 0, 0, 1, 1);
-                    var rgb2 = ctx.getImageData(0, 0, 1, 1);
-                    return rgb2.data[3];
+                    var rgb = ctx.getImageData(0, 0, 1, 1);
+                    return rgb.data[3];
                   }
                 }
                 return null;
@@ -36915,9 +36915,9 @@
                 }
                 return this;
               },
-              setText: function(text) {
+              setText: function(text2) {
                 if (this.node) {
-                  this.node.innerText = text;
+                  this.node.innerText = text2;
                   this.updateSize();
                 }
                 return this;
@@ -38424,10 +38424,10 @@
             module2.exports = PathFollower;
           },
           function(module2, exports2) {
-            var GetTextSize = function(text, size, lines) {
-              var canvas = text.canvas;
-              var context = text.context;
-              var style = text.style;
+            var GetTextSize = function(text2, size, lines) {
+              var canvas = text2.canvas;
+              var context = text2.context;
+              var style = text2.style;
               var lineWidths = [];
               var maxLineWidth = 0;
               var drawnLines = lines.length;
@@ -38446,7 +38446,7 @@
               }
               var lineHeight = size.fontSize + style.strokeThickness;
               var height2 = lineHeight * drawnLines;
-              var lineSpacing = text.lineSpacing;
+              var lineSpacing = text2.lineSpacing;
               if (drawnLines > 1) {
                 height2 += lineSpacing * (drawnLines - 1);
               }
@@ -38495,8 +38495,8 @@
               wordWrapUseAdvanced: ["wordWrap.useAdvancedWrap", false]
             };
             var TextStyle = new Class({
-              initialize: function TextStyle2(text, style) {
-                this.parent = text;
+              initialize: function TextStyle2(text2, style) {
+                this.parent = text2;
                 this.fontFamily;
                 this.fontSize;
                 this.fontStyle;
@@ -40178,8 +40178,8 @@
               willRender: function(camera) {
                 return !(Light.RENDER_MASK !== this.renderFlags || this.cameraFilter !== 0 && this.cameraFilter & camera.id);
               },
-              setColor: function(rgb2) {
-                var color2 = Utils.getFloatsFromUintRGB(rgb2);
+              setColor: function(rgb) {
+                var color2 = Utils.getFloatsFromUintRGB(rgb);
                 this.color.set(color2[0], color2[1], color2[2]);
                 return this;
               },
@@ -40250,8 +40250,8 @@
               sortByDistance: function(a2, b2) {
                 return a2.distance >= b2.distance;
               },
-              setAmbientColor: function(rgb2) {
-                var color2 = Utils.getFloatsFromUintRGB(rgb2);
+              setAmbientColor: function(rgb) {
+                var color2 = Utils.getFloatsFromUintRGB(rgb);
                 this.ambientColor.set(color2[0], color2[1], color2[2]);
                 return this;
               },
@@ -40261,7 +40261,7 @@
               getLightCount: function() {
                 return this.lights.length;
               },
-              addLight: function(x, y, radius, rgb2, intensity) {
+              addLight: function(x, y, radius, rgb, intensity) {
                 if (x === void 0) {
                   x = 0;
                 }
@@ -40271,13 +40271,13 @@
                 if (radius === void 0) {
                   radius = 128;
                 }
-                if (rgb2 === void 0) {
-                  rgb2 = 16777215;
+                if (rgb === void 0) {
+                  rgb = 16777215;
                 }
                 if (intensity === void 0) {
                   intensity = 1;
                 }
-                var color2 = Utils.getFloatsFromUintRGB(rgb2);
+                var color2 = Utils.getFloatsFromUintRGB(rgb);
                 var light = new Light(x, y, radius, color2[0], color2[1], color2[2], intensity);
                 this.lights.push(light);
                 return light;
@@ -47267,11 +47267,11 @@
                   }
                   var output;
                   if (isRange) {
-                    var diff = value2 - value1;
+                    var diff2 = value2 - value1;
                     if (easeFunction) {
-                      output = gridSpace / gridMax * diff * easeFunction(gridSpace / gridMax);
+                      output = gridSpace / gridMax * diff2 * easeFunction(gridSpace / gridMax);
                     } else {
-                      output = gridSpace / gridMax * diff;
+                      output = gridSpace / gridMax * diff2;
                     }
                   } else if (easeFunction) {
                     output = gridSpace * value1 * easeFunction(gridSpace / gridMax);
@@ -54132,10 +54132,10 @@
                 var i = 0;
                 while (i < curveLengths.length) {
                   if (curveLengths[i] >= d) {
-                    var diff = curveLengths[i] - d;
+                    var diff2 = curveLengths[i] - d;
                     var curve = this.curves[i];
                     var segmentLength = curve.getLength();
-                    var u = segmentLength === 0 ? 0 : 1 - diff / segmentLength;
+                    var u = segmentLength === 0 ? 0 : 1 - diff2 / segmentLength;
                     return curve.getPointAt(u, out);
                   }
                   i++;
@@ -54203,10 +54203,10 @@
                 var i = 0;
                 while (i < curveLengths.length) {
                   if (curveLengths[i] >= d) {
-                    var diff = curveLengths[i] - d;
+                    var diff2 = curveLengths[i] - d;
                     var curve = this.curves[i];
                     var segmentLength = curve.getLength();
-                    var u = segmentLength === 0 ? 0 : 1 - diff / segmentLength;
+                    var u = segmentLength === 0 ? 0 : 1 - diff2 / segmentLength;
                     return curve.getTangentAt(u, out);
                   }
                   i++;
@@ -56303,8 +56303,8 @@
                 };
                 return out;
               }
-              var text = src.text;
-              var textLength = text.length;
+              var text2 = src.text;
+              var textLength = text2.length;
               var maxWidth = src.maxWidth;
               var wordWrapCharCode = src.wordWrapCharCode;
               var bx = Number.MAX_VALUE;
@@ -56337,7 +56337,7 @@
               var current = null;
               if (maxWidth > 0) {
                 for (i = 0; i < textLength; i++) {
-                  charCode = text.charCodeAt(i);
+                  charCode = text2.charCodeAt(i);
                   if (charCode === 10) {
                     if (current !== null) {
                       words.push({
@@ -56380,7 +56380,7 @@
                     if (current === null) {
                       current = { word: "", i, x: xAdvance, y: yAdvance, w: 0, h: lineHeight, cr: false };
                     }
-                    current.word = current.word.concat(text[i]);
+                    current.word = current.word.concat(text2[i]);
                     current.w += glyph.xOffset + glyph.xAdvance + (glyphKerningOffset !== void 0 ? glyphKerningOffset : 0);
                   }
                   xAdvance += glyph.xAdvance + letterSpacing;
@@ -56410,8 +56410,8 @@
                   var left = entry.x;
                   var right = entry.x + entry.w;
                   if (prev) {
-                    var diff = left - (prev.x + prev.w);
-                    offset = left - (diff + prev.w);
+                    var diff2 = left - (prev.x + prev.w);
+                    offset = left - (diff2 + prev.w);
                     prev = null;
                   }
                   var checkLeft = left - offset;
@@ -56435,16 +56435,16 @@
                   return str.substr(0, index) + value + str.substr(index + 1);
                 };
                 for (i = crs.length - 1; i >= 0; i--) {
-                  text = stringInsert(text, crs[i], "\n");
+                  text2 = stringInsert(text2, crs[i], "\n");
                 }
-                out.wrappedText = text;
-                textLength = text.length;
+                out.wrappedText = text2;
+                textLength = text2.length;
                 words = [];
                 current = null;
               }
               var charIndex = 0;
               for (i = 0; i < textLength; i++) {
-                charCode = text.charCodeAt(i);
+                charCode = text2.charCodeAt(i);
                 if (charCode === 10) {
                   if (current !== null) {
                     words.push({
@@ -56512,12 +56512,12 @@
                   if (current === null) {
                     current = { word: "", i: charIndex, x: xAdvance, y: yAdvance, w: 0, h: lineHeight };
                   }
-                  current.word = current.word.concat(text[i]);
+                  current.word = current.word.concat(text2[i]);
                   current.w += charWidth;
                 }
                 characters.push({
                   i: charIndex,
-                  char: text[i],
+                  char: text2[i],
                   code: charCode,
                   x: (glyph.xOffset + xAdvance) * scale2,
                   y: (glyph.yOffset + yAdvance) * scale2,
@@ -56647,8 +56647,8 @@
             var GetCalcMatrix = __webpack_require__(19);
             var Utils = __webpack_require__(12);
             var BitmapTextWebGLRenderer = function(renderer, src, camera, parentMatrix) {
-              var text = src._text;
-              var textLength = text.length;
+              var text2 = src._text;
+              var textLength = text2.length;
               if (textLength === 0) {
                 return;
               }
@@ -56734,8 +56734,8 @@
           function(module2, exports2, __webpack_require__) {
             var SetTransform = __webpack_require__(30);
             var BitmapTextCanvasRenderer = function(renderer, src, camera, parentMatrix) {
-              var text = src._text;
-              var textLength = text.length;
+              var text2 = src._text;
+              var textLength = text2.length;
               var ctx = renderer.currentContext;
               if (textLength === 0 || !SetTransform(renderer, ctx, src, camera, parentMatrix)) {
                 return;
@@ -56766,8 +56766,8 @@
               var lineOffsetX = 0;
               var bounds = src.getTextBounds(false);
               if (src.maxWidth > 0) {
-                text = bounds.wrappedText;
-                textLength = text.length;
+                text2 = bounds.wrappedText;
+                textLength = text2.length;
               }
               var lineData = src._bounds.lines;
               if (align === 1) {
@@ -56778,7 +56778,7 @@
               ctx.translate(-src.displayOriginX, -src.displayOriginY);
               var roundPixels = camera.roundPixels;
               for (var i = 0; i < textLength; i++) {
-                charCode = text.charCodeAt(i);
+                charCode = text2.charCodeAt(i);
                 if (charCode === 10) {
                   currentLine++;
                   if (align === 1) {
@@ -57181,8 +57181,8 @@
             var Utils = __webpack_require__(12);
             var tempMatrix = new TransformMatrix();
             var DynamicBitmapTextWebGLRenderer = function(renderer, src, camera, parentMatrix) {
-              var text = src.text;
-              var textLength = text.length;
+              var text2 = src.text;
+              var textLength = text2.length;
               if (textLength === 0) {
                 return;
               }
@@ -57231,8 +57231,8 @@
               var lineOffsetX = 0;
               var bounds = src.getTextBounds(false);
               if (src.maxWidth > 0) {
-                text = bounds.wrappedText;
-                textLength = text.length;
+                text2 = bounds.wrappedText;
+                textLength = text2.length;
               }
               var lineData = src._bounds.lines;
               if (align === 1) {
@@ -57245,7 +57245,7 @@
               var callbackData = src.callbackData;
               renderer.pipelines.preBatch(src);
               for (var i = 0; i < textLength; i++) {
-                charCode = text.charCodeAt(i);
+                charCode = text2.charCodeAt(i);
                 if (charCode === 10) {
                   currentLine++;
                   if (align === 1) {
@@ -57356,8 +57356,8 @@
           function(module2, exports2, __webpack_require__) {
             var SetTransform = __webpack_require__(30);
             var DynamicBitmapTextCanvasRenderer = function(renderer, src, camera, parentMatrix) {
-              var text = src._text;
-              var textLength = text.length;
+              var text2 = src._text;
+              var textLength = text2.length;
               var ctx = renderer.currentContext;
               if (textLength === 0 || !SetTransform(renderer, ctx, src, camera, parentMatrix)) {
                 return;
@@ -57407,7 +57407,7 @@
               for (var i = 0; i < textLength; i++) {
                 scale2 = baseScale;
                 rotation = 0;
-                charCode = text.charCodeAt(i);
+                charCode = text2.charCodeAt(i);
                 if (charCode === 10) {
                   currentLine++;
                   if (align === 1) {
@@ -59702,8 +59702,8 @@
           function(module2, exports2, __webpack_require__) {
             var DynamicBitmapText = __webpack_require__(215);
             var GameObjectFactory = __webpack_require__(5);
-            GameObjectFactory.register("dynamicBitmapText", function(x, y, font, text, size) {
-              return this.displayList.add(new DynamicBitmapText(this.scene, x, y, font, text, size));
+            GameObjectFactory.register("dynamicBitmapText", function(x, y, font, text2, size) {
+              return this.displayList.add(new DynamicBitmapText(this.scene, x, y, font, text2, size));
             });
           },
           function(module2, exports2, __webpack_require__) {
@@ -59788,15 +59788,15 @@
           function(module2, exports2, __webpack_require__) {
             var BitmapText = __webpack_require__(148);
             var GameObjectFactory = __webpack_require__(5);
-            GameObjectFactory.register("bitmapText", function(x, y, font, text, size, align) {
-              return this.displayList.add(new BitmapText(this.scene, x, y, font, text, size, align));
+            GameObjectFactory.register("bitmapText", function(x, y, font, text2, size, align) {
+              return this.displayList.add(new BitmapText(this.scene, x, y, font, text2, size, align));
             });
           },
           function(module2, exports2, __webpack_require__) {
             var Text = __webpack_require__(224);
             var GameObjectFactory = __webpack_require__(5);
-            GameObjectFactory.register("text", function(x, y, text, style) {
-              return this.displayList.add(new Text(this.scene, x, y, text, style));
+            GameObjectFactory.register("text", function(x, y, text2, style) {
+              return this.displayList.add(new Text(this.scene, x, y, text2, style));
             });
           },
           function(module2, exports2, __webpack_require__) {
@@ -59949,9 +59949,9 @@
                 config = {};
               }
               var font = GetAdvancedValue(config, "font", "");
-              var text = GetAdvancedValue(config, "text", "");
+              var text2 = GetAdvancedValue(config, "text", "");
               var size = GetAdvancedValue(config, "size", false);
-              var bitmapText = new BitmapText(this.scene, 0, 0, font, text, size);
+              var bitmapText = new BitmapText(this.scene, 0, 0, font, text2, size);
               if (addToScene !== void 0) {
                 config.add = addToScene;
               }
@@ -60127,10 +60127,10 @@
                 config = {};
               }
               var font = GetValue(config, "font", "");
-              var text = GetAdvancedValue(config, "text", "");
+              var text2 = GetAdvancedValue(config, "text", "");
               var size = GetAdvancedValue(config, "size", false);
               var align = GetValue(config, "align", 0);
-              var bitmapText = new BitmapText(this.scene, 0, 0, font, text, size, align);
+              var bitmapText = new BitmapText(this.scene, 0, 0, font, text2, size, align);
               if (addToScene !== void 0) {
                 config.add = addToScene;
               }
@@ -60153,14 +60153,14 @@
               if (padding !== null) {
                 style.padding = padding;
               }
-              var text = new Text(this.scene, 0, 0, content, style);
+              var text2 = new Text(this.scene, 0, 0, content, style);
               if (addToScene !== void 0) {
                 config.add = addToScene;
               }
-              BuildGameObject(this.scene, text, config);
-              text.autoRound = GetAdvancedValue(config, "autoRound", true);
-              text.resolution = GetAdvancedValue(config, "resolution", 1);
-              return text;
+              BuildGameObject(this.scene, text2, config);
+              text2.autoRound = GetAdvancedValue(config, "autoRound", true);
+              text2.resolution = GetAdvancedValue(config, "resolution", 1);
+              return text2;
             });
           },
           function(module2, exports2, __webpack_require__) {
@@ -65537,8 +65537,8 @@
               },
               onProcess: function() {
                 this.state = CONST.FILE_PROCESSING;
-                var text = this.xhrLoader.responseText;
-                var svg = [text];
+                var text2 = this.xhrLoader.responseText;
+                var svg = [text2];
                 var width2 = this.config.width;
                 var height2 = this.config.height;
                 var scale2 = this.config.scale;
@@ -65546,7 +65546,7 @@
                   if (width2 && height2 || scale2) {
                     var xml = null;
                     var parser = new DOMParser();
-                    xml = parser.parseFromString(text, "text/xml");
+                    xml = parser.parseFromString(text2, "text/xml");
                     var svgXML = xml.getElementsByTagName("svg")[0];
                     var hasViewBox = svgXML.hasAttribute("viewBox");
                     var svgWidth = parseFloat(svgXML.getAttribute("width"));
@@ -65770,10 +65770,10 @@
               addToCache: function() {
                 if (this.isReadyToProcess()) {
                   var image = this.files[0];
-                  var text = this.files[1];
+                  var text2 = this.files[1];
                   var normalMap = this.files[2] ? this.files[2].data : null;
-                  this.loader.textureManager.addUnityAtlas(image.key, image.data, text.data, normalMap);
-                  text.pendingDestroy();
+                  this.loader.textureManager.addUnityAtlas(image.key, image.data, text2.data, normalMap);
+                  text2.pendingDestroy();
                   this.complete = true;
                 }
               }
@@ -67234,10 +67234,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x + center2.x + diff.x,
-                    y + center2.y + diff.y
+                    x + center2.x + diff2.x,
+                    y + center2.y + diff2.y
                   );
                 }
                 return false;
@@ -67251,10 +67251,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x + diff.x,
-                    y + center2.y + diff.y
+                    x + diff2.x,
+                    y + center2.y + diff2.y
                   );
                 }
                 return false;
@@ -67268,10 +67268,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x - (center2.x - diff.x),
-                    y + center2.y + diff.y
+                    x - (center2.x - diff2.x),
+                    y + center2.y + diff2.y
                   );
                 }
                 return false;
@@ -67285,10 +67285,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x + center2.x + diff.x,
-                    y + diff.y
+                    x + center2.x + diff2.x,
+                    y + diff2.y
                   );
                 }
                 return false;
@@ -67301,10 +67301,10 @@
                   y = 0;
                 }
                 if (this.parseBody(body)) {
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x + diff.x,
-                    y + diff.y
+                    x + diff2.x,
+                    y + diff2.y
                   );
                 }
                 return false;
@@ -67318,10 +67318,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x - (center2.x - diff.x),
-                    y + diff.y
+                    x - (center2.x - diff2.x),
+                    y + diff2.y
                   );
                 }
                 return false;
@@ -67335,10 +67335,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x + center2.x + diff.x,
-                    y - (center2.y - diff.y)
+                    x + center2.x + diff2.x,
+                    y - (center2.y - diff2.y)
                   );
                 }
                 return false;
@@ -67352,10 +67352,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x + diff.x,
-                    y - (center2.y - diff.y)
+                    x + diff2.x,
+                    y - (center2.y - diff2.y)
                   );
                 }
                 return false;
@@ -67369,10 +67369,10 @@
                 }
                 if (this.parseBody(body)) {
                   var center2 = this.boundsCenter;
-                  var diff = this.centerDiff;
+                  var diff2 = this.centerDiff;
                   return new Vector2(
-                    x - (center2.x - diff.x),
-                    y - (center2.y - diff.y)
+                    x - (center2.x - diff2.x),
+                    y - (center2.y - diff2.y)
                   );
                 }
                 return false;
@@ -69356,25 +69356,25 @@
                 for (var k = partsLength > 1 ? 1 : 0; k < partsLength; k++) {
                   var part = parts[k];
                   var render = part.render;
-                  var opacity2 = render.opacity;
-                  if (!render.visible || opacity2 === 0 || part.isSensor && !config.showSensors) {
+                  var opacity = render.opacity;
+                  if (!render.visible || opacity === 0 || part.isSensor && !config.showSensors) {
                     continue;
                   }
                   var circleRadius = part.circleRadius;
                   graphics.beginPath();
                   if (part.isSensor) {
                     if (fillColor !== null) {
-                      graphics.fillStyle(sensorFillColor, fillOpacity * opacity2);
+                      graphics.fillStyle(sensorFillColor, fillOpacity * opacity);
                     }
                     if (lineColor !== null) {
-                      graphics.lineStyle(lineThickness, sensorLineColor, lineOpacity * opacity2);
+                      graphics.lineStyle(lineThickness, sensorLineColor, lineOpacity * opacity);
                     }
                   } else {
                     if (fillColor !== null) {
-                      graphics.fillStyle(fillColor, fillOpacity * opacity2);
+                      graphics.fillStyle(fillColor, fillOpacity * opacity);
                     }
                     if (lineColor !== null) {
-                      graphics.lineStyle(lineThickness, lineColor, lineOpacity * opacity2);
+                      graphics.lineStyle(lineThickness, lineColor, lineOpacity * opacity);
                     }
                   }
                   if (circleRadius) {
@@ -75914,7 +75914,7 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   });
   loadSprite("crosshair", "sprites/crosshair.png");
   loadSprite("bullet", "sprites/bullet.png");
-  loadSprite("slime", "sprites/slime.png");
+  loadSprite("zombie", "sprites/zombie.png");
   loadSprite("player", "sprites/player.png");
   loadSprite("m4", "sprites/M4.png");
   loadSound("gunshot", "sounds/gunshot.mp3");
@@ -75951,6 +75951,27 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     solid(),
     color(100, 100, 100)
   ]);
+  var score = 0;
+  var kills = 0;
+  var scoretxt = add([
+    text("Time:")
+  ]);
+  var scoreText = add([
+    text(score),
+    pos(250, 0)
+  ]);
+  var killstxt = add([
+    text("Kills:"),
+    pos(0, 60)
+  ]);
+  var killsText = add([
+    text(kills),
+    pos(300, 60)
+  ]);
+  loop(1, () => {
+    score++;
+    scoreText.text = score;
+  });
   var m4 = add([
     sprite("m4"),
     origin("center"),
@@ -75970,50 +75991,35 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
     z(15),
     health(1)
   ]);
-  var slime = add([
-    sprite("slime"),
-    origin("center"),
-    pos(150, 150),
-    area({ scale: 0.5 }),
-    solid(),
-    scale(0.8),
-    rotate(),
-    z(100),
-    color(),
-    "slime",
-    add([
-      pos(80, 120),
-      rect(80, 80),
-      area(),
-      origin("center"),
-      follow(slime),
-      opacity(0),
-      health(100)
-    ])
-  ]);
-  wait(3, () => {
-    add([
-      sprite("slime"),
-      origin("center"),
-      pos(150, 150),
-      area({ scale: 0.5 }),
-      solid(),
-      scale(0.8),
-      rotate(),
-      z(100),
-      color(),
-      "slime"
-    ]);
+  var spawnPosX = [150, 900, 1500];
+  var spawnPosY = [150, 750];
+  var diff = 3;
+  loop(2, () => {
+    loop(diff, () => {
+      const zombie = add([
+        sprite("zombie"),
+        origin("center"),
+        pos(spawnPosX[Math.floor(Math.random() * 3)], spawnPosY[Math.floor(Math.random() * 2)]),
+        area({ scale: 0.5 }, { shape: "circle" }),
+        solid(),
+        scale(0.8),
+        rotate(),
+        z(100),
+        color(),
+        health(100),
+        hp = 100,
+        "zombie"
+      ]);
+    });
+    if (diff < 0.2) {
+      diff -= 0.1;
+    }
   });
-  var hitbox = add([
-    pos(80, 120),
-    rect(80, 80),
-    area(),
-    origin("center"),
-    follow(slime),
-    opacity(0),
-    health(100)
-  ]);
+  onCollide("bullet", "zombie", (bullet, zombie) => {
+    zombie.hurt(20);
+    console.log(zombie.hp);
+    bullet.destroy();
+  });
   var crosshair = add([
     sprite("crosshair"),
     pos(),
@@ -76034,8 +76040,13 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
   onKeyDown("a", () => {
     player.move(-400, 0);
   });
-  onUpdate("slime", (slime2) => {
-    slime2.move(player.pos.sub(slime2.pos).unit().scale(400));
+  onUpdate("zombie", (zombie) => {
+    zombie.move(player.pos.sub(zombie.pos).unit().scale(400));
+  });
+  onCollide("bullet", "zombie", (bullet, zombie) => {
+    zombie.destroy();
+    kills++;
+    killsText.text = kills;
   });
   var canShoot = 1;
   onMouseDown(() => {
@@ -76051,28 +76062,19 @@ vec4 frag(vec3 pos, vec2 uv, vec4 color, sampler2D tex) {
         move(crosshair.pos.angle(m4.pos), 3e3),
         cleanup(),
         "bullet",
-        onCollide("slime", () => {
+        onCollide("zombie", () => {
           console.log("hi");
         })
       ]);
       wait(0.1, () => canShoot = 1);
     }
   });
-  player.onCollide("slime", () => {
+  player.onCollide("zombie", () => {
     player.hurt(1);
   });
   player.onDeath(() => {
     player.destroy();
     m4.destroy();
-  });
-  hitbox.onCollide("bullet", () => {
-    hitbox.hurt(5);
-    slime.move(player.pos.sub(slime.pos).unit().scale(-800));
-    slime.color = rgb(255, 50, 50);
-    wait(0.1, () => slime.color = rgb(255, 255, 255));
-  });
-  hitbox.onDeath(() => {
-    slime.destroy();
   });
   player.onUpdate(() => {
     player.angle = crosshair.pos.angle(player.pos);
