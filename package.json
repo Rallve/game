@@ -2,11 +2,12 @@
   "name": "game",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "build.js",
   "scripts": {
     "build": "esbuild main.js --bundle --outfile=build.js",
+    "build2": "esbuild main.js --bundle > build.js",
     "watch": "esbuild --watch main.js --bundle --outfile=build.js",
-    "start": "esbuild main.js --bundle --minify --sourcemap"
+    "start": "esbuild main.js --bundle --minify & npx http-server"
   },
   "keywords": [],
   "author": "",
